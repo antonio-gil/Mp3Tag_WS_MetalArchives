@@ -1,0 +1,226 @@
+# ###################################################################
+#
+#     _____          __         .__           _____                .__    .__
+#    /     \   _____/  |______  |  |         /  _  \_______   ____ |  |__ |__|__  __ ____   ______
+#   /  \ /  \_/ __ \   __\__  \ |  |        /  /_\  \_  __ \_/ ___\|  |  \|  \  \/ // __ \ /  ___/
+#  /    Y    \  ___/|  |  / __ \|  |__     /    |    \  | \/\  \___|   Y  \  |\   /\  ___/ \___ \ 
+#  \____|__  /\___  >__| (____  /____/     \____|__  /__|    \___  >___|  /__| \_/  \___  >____  >
+#          \/     \/          \/                   \/            \/     \/              \/     \/ 
+#                     
+#
+#
+# Mp3tag parsing for Metal-Archives.com, created by dano on 2007-12-15
+#
+# This file should be in your sources dir. 
+# On Windows XP it's C:\Documents and Settings\*username*\Application Data\Mp3tag\data\sources
+#
+# This config is used to gain informations about an ALBUM.
+#
+#	2009-07-07: Update
+#	2011-04-29: Update
+#
+# Only search for Metal music, normal music is not on the site
+# Also only real Metal. KoRn, Linkin Park or similar is not on the site
+#
+
+[Name]=The Metal Archives
+[BasedOn]=www.metal-archives.com
+[IndexUrl]=http://www.metal-archives.com/search/ajax-advanced/searching/albums/?bandName=
+[AlbumUrl]=
+[WordSeperator]=+
+[IndexFormat]=%Artist%|%_url%|%Album%|%Type%
+[SearchBy]=%artist%&releaseTitle=%album%
+[Encoding]=utf-8
+
+
+[ParserScriptIndex]=...
+# ###################################################################
+#					I  N  D  E  X
+# ###################################################################
+#debug "on" "c:\yDebug\debug_MA-Google-Album-EXT_A.htm" "10"
+#debugwriteinput "c:\yDebug\Metal-Archives Album A.htm"
+
+
+findline "<a href=\\\""
+do
+	# Artist 
+	findinline "\\\">"
+	sayuntil "<"
+	say "|"
+	
+	# Url
+	moveline 1
+	findinline "<a href=\\\"" 
+	sayuntil "\\\""
+	say "|"
+	
+	# Album
+	findinline "\\\">"	
+	sayuntil "<"
+	say "|"
+	
+    # Type
+    moveline 1
+    replace "\"" ""
+    replace "," ""
+	sayrest
+	
+	
+
+    moveline 1
+    
+	saynewline
+	 
+    findline "<a href=\\\"" 1 1
+    unspace
+    
+while "\"<a href" 500
+
+
+[ParserScriptAlbum]=...
+# ###################################################################
+#					A  L  B  U  M
+# ###################################################################
+#debug "on" "c:\yDebug\debug_MA-Album_EXT-B.htm" "10"
+
+
+findline "id=\"album_sidebar\">"
+
+# Band URL
+outputto "METAL ARCHIVES BAND URL"
+findline "<a href=\""
+replace "#band_tab_discography" ""
+findinline "<a href=\""
+sayuntil "\""
+
+# Coverurl
+outputto "coverurl"
+findline "class=\"album_img\""
+joinuntil "</div>"
+findinline " href=\"" 1 1
+sayuntil "\""
+
+
+# Album
+outputto "Album"
+findline "<div id=\"album_info\">"
+findline "<h1 class=\"album_name\">"
+regexpreplace "<a[^>]+>" ""
+findinline "<h1 class=\"album_name\">"
+sayuntil "</"
+
+# Artist
+outputto "Artist"
+findline "class=\"band_name\">"
+regexpreplace "<a[^>]+>" ""
+findinline "class=\"band_name\">"
+sayuntil "</"
+
+# Type
+outputto "Metal Archives Type"
+findline "<dt>Type:</dt>"
+moveline 1 1
+regexpreplace "<[^>]+>" "" #kt
+sayrest
+
+# Year	          
+outputto "Year"
+findline "<dt>Release date:</dt>"
+moveline 1 1
+regexpreplace "<[^>]+>" "" #kt
+sayregexp "\d\d\d\d"
+
+# Date
+outputto "Metal Archives Date"
+replace "January " "-01-"
+replace "February " "-02-"
+replace "March " "-03-"
+replace "April " "-04-"
+replace "May " "-05-"
+replace "June " "-06-"
+replace "July " "-07-"
+replace "August " "-08-"
+replace "September " "-09-"
+replace "October " "-10-"
+replace "November " "-11-"
+replace "December " "-12-"
+regexpreplace "(\d+)[a-z,]+\s*" "$1-"
+regexpreplace "-(\d)-" "-0$1-"
+regexpreplace "-(\d\d)-(\d\d)-(\d\d\d\d)" "$3-$1-$2"
+sayregexp "\d\d\d\d-\d\d-\d\d"
+	        
+# Publisher
+outputto "Publisher"
+findline "<dt>Label:</dt>"
+moveline 1 1
+regexpreplace "<[^>]+>" "" #kt
+sayrest
+
+# Album Rating
+outputto "Metal Archives Rating"
+findline "<dt>Reviews:</dt>"
+moveline 1 1
+joinuntil "</dd>"
+regexpreplace "<[^>]+>" "" #kt
+regexpreplace "\d+ reviews? (\(avg\.)? *" ""
+replace ")" ""
+sayrest
+
+
+# Tracks
+findline "class=\"display table_lyrics\""
+findline "<td width=\"20\">"
+do
+	outputto "Tracks"
+	
+	findline "<td" 2
+	joinuntil "</td>"
+	findinline "<td"
+	findinline ">"
+	sayuntil "</td>"
+	say "|"
+	
+	# Length
+	outputto "_length"
+	findline "align=\"right\">"
+	sayregexp "\d+:\d+"
+	say "|"
+	
+	findline "<td width=\"20\">" 1 1
+	unspace
+while "<td width=\"20\">" 666
+
+
+gotoline 1
+      
+# METAL ARCHIVE INFO
+
+findline "<div id=\"album_tabs_notes\"" 1 1
+unspace
+if "<div id="
+	outputto "METAL ARCHIVES INFO"
+	findline "class=\"ui-tabs-panel-content"
+	moveline 1 1
+	joinuntil "</div>"      
+    
+    replace "<i>" ""
+    replace "</i>" ""
+    replace "</td>" ""
+    
+    regexpreplace ">\r" ">"
+    regexpreplace "\r<" "<"
+    regexpreplace "(?i)<br>|<br />" "\r\n"
+
+    sayuntil "</div>"
+endif
+
+outputto "METAL ARCHIVES ALBUM URL"
+sayoutput "CurrentUrl"
+
+
+# ... Customization ...
+
+# Fields that you want to remove
+#	(to remove a field write: set "field")
+
+
