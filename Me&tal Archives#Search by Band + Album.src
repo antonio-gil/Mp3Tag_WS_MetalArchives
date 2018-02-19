@@ -37,8 +37,8 @@
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
-#debug "on" "c:\yDebug\debug_MA-Google-Album-EXT_A.htm" "10"
-#debugwriteinput "c:\yDebug\Metal-Archives Album A.htm"
+# debug "on" "D:\Tools\debug_MA-Google-Album-EXT_A.htm" "10"
+# debugwriteinput "D:\Tools\Metal-Archives Album A.htm"
 
 
 findline "<a href=\\\""
@@ -81,7 +81,7 @@ while "\"<a href" 500
 # ###################################################################
 #					A  L  B  U  M
 # ###################################################################
-#debug "on" "c:\yDebug\debug_MA-Album_EXT-B.htm" "10"
+# debug "on" "D:\Tools\debug_MA-Album_EXT-B.htm" "10"
 
 
 findline "id=\"album_sidebar\">"
@@ -206,7 +206,13 @@ if "<div id="
     replace "<i>" ""
     replace "</i>" ""
     replace "</td>" ""
+    replace "</a>" ""
     
+    regexpreplace "[^\S\r\n]{2,}" ""
+    regexpreplace "<p[^>]*>" ""
+    regexpreplace "</p>" "\r\n"
+    regexpreplace "<a href[^>]*>" ""
+
     regexpreplace ">\r" ">"
     regexpreplace "\r<" "<"
     regexpreplace "(?i)<br>|<br />" "\r\n"

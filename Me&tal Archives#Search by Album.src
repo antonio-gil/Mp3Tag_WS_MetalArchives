@@ -207,6 +207,12 @@ if "<div id="
     replace "<i>" ""
     replace "</i>" ""
     replace "</td>" ""
+    replace "</a>" ""
+    
+    regexpreplace "[^\S\r\n]{2,}" ""
+    regexpreplace "<p[^>]*>" ""
+    regexpreplace "</p>" "\r\n"
+    regexpreplace "<a href[^>]*>" ""
     
     regexpreplace ">\r" ">"
     regexpreplace "\r<" "<"
