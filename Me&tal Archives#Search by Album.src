@@ -37,8 +37,8 @@
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
-#debug "on" "c:\yDebug\debug_MA-Google-Album-EXT_A.htm" "10"
-#debugwriteinput "c:\yDebug\Metal-Archives Album A.htm"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Google-Album-EXT_A.htm" "10"
+# debugwriteinput "D:\Projects\mp3tag_temp\Metal-Archives Album A.htm"
 
 
 findline "<a href=\\\""
@@ -82,7 +82,7 @@ while "\"<a href" 500
 # ###################################################################
 #					A  L  B  U  M
 # ###################################################################
-#debug "on" "c:\yDebug\debug_MA-Album_EXT-B.htm" "10"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Album_EXT-B.htm" "10"
 
 
 findline "id=\"album_sidebar\">"
