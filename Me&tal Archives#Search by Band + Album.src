@@ -111,9 +111,9 @@ sayuntil "</"
 
 # Artist
 outputto "Artist"
-findline "class=\"band_name\">"
+findline "<h2 class=\"band_name\">"
+moveline 1 1
 regexpreplace "<a[^>]+>" ""
-findinline "class=\"band_name\">"
 sayuntil "</"
 
 # Type
