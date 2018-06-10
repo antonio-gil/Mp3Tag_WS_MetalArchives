@@ -63,6 +63,7 @@ do
     moveline 1
     replace "\"" ""
     replace "," ""
+    regexpreplace "[^\S\r\n]{2,}\]" ""
 	sayrest
 	
 	
@@ -207,6 +208,8 @@ if "<div id="
     replace "</i>" ""
     replace "</td>" ""
     replace "</a>" ""
+    replace "<b>" ""
+    replace "</b>" ""
     
     regexpreplace "[^\S\r\n]{2,}" ""
     regexpreplace "<p[^>]*>" ""

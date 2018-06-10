@@ -208,6 +208,8 @@ if "<div id="
     replace "</i>" ""
     replace "</td>" ""
     replace "</a>" ""
+    replace "<b>" ""
+    replace "</b>" ""
     
     regexpreplace "[^\S\r\n]{2,}" ""
     regexpreplace "<p[^>]*>" ""
