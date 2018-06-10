@@ -149,6 +149,13 @@ regexpreplace "(\d+)[a-z,]+\s*" "$1-"
 regexpreplace "-(\d)-" "-0$1-"
 regexpreplace "-(\d\d)-(\d\d)-(\d\d\d\d)" "$3-$1-$2"
 sayregexp "\d\d\d\d-\d\d-\d\d"
+
+# Catalog ID
+outputto "Catalog"
+findline "<dt>Catalog ID:</dt>"
+moveline 1 1
+regexpreplace "<[^>]+>" "" #kt
+sayrest
 	        
 # Publisher
 outputto "Publisher"
