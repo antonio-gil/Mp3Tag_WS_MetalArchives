@@ -25,11 +25,11 @@
 
 [Name]=The Metal Archives
 [BasedOn]=www.metal-archives.com
-[IndexUrl]=http://www.metal-archives.com/search/ajax-advanced/searching/albums/?bandName=
+[IndexUrl]=http://www.metal-archives.com/search/ajax-advanced/searching/albums/?
 [AlbumUrl]=
 [WordSeperator]=+
 [IndexFormat]=%Artist%|%_url%|%Album%|%Type%
-[SearchBy]=%artist%&releaseTitle=%album%
+[SearchBy]=Band||%artist%||&bandName=%s||Album||%album%||&releaseTitle=%s
 [Encoding]=utf-8
 
 
