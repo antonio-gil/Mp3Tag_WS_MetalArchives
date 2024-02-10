@@ -179,7 +179,7 @@ sayrest
 findline "class=\"display table_lyrics\""
 moveline 2
 
-set "TEMP_DiscNumber"
+set "TEMP_DiscNumber" "1"
 findline "<td width=\"20\">"
 do
     moveline -7
