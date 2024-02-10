@@ -25,20 +25,20 @@
 
 [Name]=The Metal Archives
 [BasedOn]=www.metal-archives.com
-[IndexUrl]=http://www.metal-archives.com/search/ajax-advanced/searching/albums/?bandName=
+[IndexUrl]=http://www.metal-archives.com/search/ajax-advanced/searching/albums/?
 [AlbumUrl]=
 [WordSeperator]=+
 [IndexFormat]=%Artist%|%_url%|%Album%|%Type%
-[SearchBy]=%artist%&releaseTitle=%album%
-[Encoding]=utf-8
+[SearchBy]=Band||%artist%||&bandName=%s||Album||%album%||&releaseTitle=%s
+[Encoding]=url-utf-8
 
 
 [ParserScriptIndex]=...
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Google-Album-EXT_A.htm" "10"
-# debugwriteinput "D:\Projects\mp3tag_temp\Metal-Archives Album A.htm"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Google-Album-EXT_A.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\Metal-Archives Album A.txt"
 
 
 findline "<a href=\\\""
@@ -82,7 +82,7 @@ while "\"<a href" 500
 # ###################################################################
 #					A  L  B  U  M
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Album_EXT-B.htm" "10"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Album_EXT-B.txt"
 
 
 findline "id=\"album_sidebar\">"
@@ -177,25 +177,67 @@ sayrest
 
 # Tracks
 findline "class=\"display table_lyrics\""
+moveline 2
+
+set "TEMP_DiscNumber"
 findline "<td width=\"20\">"
 do
-	outputto "Tracks"
-	
-	findline "<td" 2
-	joinuntil "</td>"
-	findinline "<td"
-	findinline ">"
-	sayuntil "</td>"
-	say "|"
-	
-	# Length
-	outputto "_length"
-	findline "align=\"right\">"
-	sayregexp "\d+:\d+"
-	say "|"
-	
-	findline "<td width=\"20\">" 1 1
-	unspace
+    moveline -7
+    if "<tr class=\"discRow\">"
+        # findline "<td colspan=\"4\">"
+        # joinuntil "</td>"
+        # findinline "<td"
+        # findinline ">"
+        # replace "Disc" ""
+        set "TEMP_DiscNumber"
+        outputto "TEMP_DiscNumber"
+        moveline 3
+        sayuntil "-"
+        unspace
+        moveline 4
+    else
+        set "ITEMP_DiscNumber"
+        outputto "ITEMP_DiscNumber"
+        SayNChars 0
+        sayoutput "TEMP_DiscNumber"
+        set "TEMP_DiscNumber"
+        outputto "TEMP_DiscNumber"
+        sayoutput "ITEMP_DiscNumber"
+        moveline 7
+    endif
+
+    outputto "Discnumber"
+    sayoutput "TEMP_DiscNumber"
+    say "|"
+
+    # findline "<td width=\"20\">"
+
+    findline "<td" 2
+
+    outputto "Tracks"
+    joinuntil "</td>"
+    findinline "<td"
+    findinline ">"
+    sayuntil "</td>"
+    say "|"
+
+    gotochar 1
+
+    outputto "METAL ARCHIVES BONUS"
+    if "<td class=\"wrapWords bonus\">"
+        say "1|"
+    else
+        say "|"
+    endif
+    
+    # Length
+    outputto "_length"
+    findline "align=\"right\">"
+    sayregexp "\d+:\d+"
+    say "|"
+    
+    findline "<td width=\"20\">" 1 1
+    unspace
 while "<td width=\"20\">" 666
 
 
@@ -226,6 +268,7 @@ if "<div id="
     regexpreplace ">\r" ">"
     regexpreplace "\r<" "<"
     regexpreplace "(?i)<br>|<br />" "\r\n"
+    regexpreplace "(?i)<br>|<br/>" "\r\n"
 
     sayuntil "</div>"
 endif
@@ -240,3 +283,5 @@ sayoutput "CurrentUrl"
 #	(to remove a field write: set "field")
 
 
+set "TEMP_DiscNumber"
+set "ITEMP_DiscNumber"
