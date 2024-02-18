@@ -37,8 +37,8 @@
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Google-Album-EXT_A.txt"
-# debugwriteinput "D:\Projects\mp3tag_temp\Metal-Archives Album A.txt"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Index.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Index_Input.txt"
 
 
 findline "<a href=\\\""
@@ -82,7 +82,8 @@ while "\"<a href" 500
 # ###################################################################
 #					A  L  B  U  M
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Album_EXT-B.txt"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Album.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Album_Input.txt"
 
 
 findline "id=\"album_sidebar\">"
@@ -118,7 +119,7 @@ regexpreplace "<a[^>]+>" ""
 sayuntil "</"
 
 # Type
-outputto "Metal Archives Type"
+outputto "METAL ARCHIVES TYPE"
 findline "<dt>Type:</dt>"
 moveline 1 1
 regexpreplace "<[^>]+>" "" #kt
@@ -132,7 +133,7 @@ regexpreplace "<[^>]+>" "" #kt
 sayregexp "\d\d\d\d"
 
 # Date
-outputto "Metal Archives Date"
+outputto "METAL ARCHIVES DATE"
 replace "January " "-01-"
 replace "February " "-02-"
 replace "March " "-03-"
@@ -147,6 +148,8 @@ replace "November " "-11-"
 replace "December " "-12-"
 regexpreplace "(\d+)[a-z,]+\s*" "$1-"
 regexpreplace "-(\d)-" "-0$1-"
+regexpreplace "^(\d\d\d\d)$" "-01-01-$1"
+regexpreplace "-(\d\d)-(\d\d\d\d)" "-$1-01-$2"
 regexpreplace "-(\d\d)-(\d\d)-(\d\d\d\d)" "$3-$1-$2"
 sayregexp "\d\d\d\d-\d\d-\d\d"
 
@@ -165,7 +168,7 @@ regexpreplace "<[^>]+>" "" #kt
 sayrest
 
 # Album Rating
-outputto "Metal Archives Rating"
+outputto "METAL ARCHIVES RATING"
 findline "<dt>Reviews:</dt>"
 moveline 1 1
 joinuntil "</dd>"
@@ -262,7 +265,7 @@ if "<div id="
     
     regexpreplace "[^\S\r\n]{2,}" ""
     regexpreplace "<p[^>]*>" ""
-    regexpreplace "</p>" "\r\n"
+    regexpreplace "</p>" "\r\n\r\n"
     regexpreplace "<a href[^>]*>" ""
 
     regexpreplace ">\r" ">"
