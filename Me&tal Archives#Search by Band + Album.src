@@ -37,8 +37,8 @@
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Index.txt"
-# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Index_Input.txt"
+debug "on" "D:\Projects\mp3tag_temp\debug_MA_Index.txt"
+debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Index_Input.txt"
 
 
 findline "<a href=\\\""
@@ -82,8 +82,8 @@ while "\"<a href" 500
 # ###################################################################
 #					A  L  B  U  M
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Album.txt"
-# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Album_Input.txt"
+debug "on" "D:\Projects\mp3tag_temp\debug_MA_Album.txt"
+debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Album_Input.txt"
 
 
 findline "id=\"album_sidebar\">"
@@ -149,7 +149,7 @@ replace "December " "-12-"
 regexpreplace "(\d+)[a-z,]+\s*" "$1-"
 regexpreplace "-(\d)-" "-0$1-"
 regexpreplace "^(\d\d\d\d)$" "-01-01-$1"
-regexpreplace "-(\d\d)-(\d\d\d\d)" "-$1-01-$2"
+regexpreplace "^-(\d\d)-(\d\d\d\d)$" "-$1-01-$2"
 regexpreplace "-(\d\d)-(\d\d)-(\d\d\d\d)" "$3-$1-$2"
 sayregexp "\d\d\d\d-\d\d-\d\d"
 

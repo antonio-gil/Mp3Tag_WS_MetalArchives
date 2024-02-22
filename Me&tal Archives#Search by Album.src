@@ -148,7 +148,7 @@ replace "December " "-12-"
 regexpreplace "(\d+)[a-z,]+\s*" "$1-"
 regexpreplace "-(\d)-" "-0$1-"
 regexpreplace "^(\d\d\d\d)$" "-01-01-$1"
-regexpreplace "-(\d\d)-(\d\d\d\d)" "-$1-01-$2"
+regexpreplace "^-(\d\d)-(\d\d\d\d)$" "-$1-01-$2"
 regexpreplace "-(\d\d)-(\d\d)-(\d\d\d\d)" "$3-$1-$2"
 sayregexp "\d\d\d\d-\d\d-\d\d"
 

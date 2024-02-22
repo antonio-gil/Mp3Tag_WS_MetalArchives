@@ -41,8 +41,8 @@
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
-debug "on" "D:\Projects\mp3tag_temp\debug_MA_Band_Index.txt"
-debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Band_Index_Input.txt"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Band_Index.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Band_Index_Input.txt"
 
 findline "<a href=\\"
 do
@@ -86,8 +86,8 @@ while "\"<a href" 500
 # ###################################################################
 #					B  A  N  D
 # ###################################################################
-debug "on" "D:\Projects\mp3tag_temp\debug_MA_Band.txt"
-debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Band_Input.txt"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Band.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Band_Input.txt"
 
 
 findline "<dl class="float_left">"
