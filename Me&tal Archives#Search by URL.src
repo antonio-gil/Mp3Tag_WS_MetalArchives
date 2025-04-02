@@ -32,7 +32,8 @@
 # ###################################################################
 #                   A  L  B  U  M
 # ###################################################################
-# debug "on" "D:\Projects\mp3tag_temp\debug_MA-Album_EXT-B.htm" "10"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Album.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Album_Input.txt"
 
 
 findline "id=\"album_sidebar\">"
@@ -95,6 +96,7 @@ replace "September " "-09-"
 replace "October " "-10-"
 replace "November " "-11-"
 replace "December " "-12-"
+unspace
 regexpreplace "(\d+)[a-z,]+\s*" "$1-"
 regexpreplace "-(\d)-" "-0$1-"
 regexpreplace "^(\d\d\d\d)$" "-01-01-$1"
@@ -176,6 +178,7 @@ do
     gotochar 1
 
     outputto "METAL ARCHIVES BONUS"
+    unspace
     if "<td class=\"wrapWords bonus\">"
         say "1|"
     else
