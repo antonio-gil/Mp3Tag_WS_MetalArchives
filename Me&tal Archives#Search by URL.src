@@ -128,73 +128,70 @@ regexpreplace "\d+ reviews? (\(avg\.)? *" ""
 replace ")" ""
 sayrest
 
-
 # Tracks
-findline "class=\"display table_lyrics\""
-moveline 2
-
 set "TEMP_DiscNumber" "1"
-findline "<td width=\"20\">"
+findline "class=\"display table_lyrics\""
 do
-    moveline -7
-    if "<tr class=\"discRow\">"
-        # findline "<td colspan=\"4\">"
-        # joinuntil "</td>"
-        # findinline "<td"
-        # findinline ">"
-        # replace "Disc" ""
-        set "TEMP_DiscNumber"
-        outputto "TEMP_DiscNumber"
-        moveline 3
-        sayuntil "-"
-        unspace
-        moveline 4
-    else
-        set "ITEMP_DiscNumber"
-        outputto "ITEMP_DiscNumber"
-        SayNChars 0
-        sayoutput "TEMP_DiscNumber"
-        set "TEMP_DiscNumber"
-        outputto "TEMP_DiscNumber"
-        sayoutput "ITEMP_DiscNumber"
-        moveline 7
-    endif
-
-    outputto "Discnumber"
-    sayoutput "TEMP_DiscNumber"
-    say "|"
-
-    # findline "<td width=\"20\">"
-
-    findline "<td" 2
-
-    outputto "Tracks"
-    joinuntil "</td>"
-    findinline "<td"
-    findinline ">"
-    sayuntil "</td>"
-    say "|"
-
-    gotochar 1
-
-    outputto "METAL ARCHIVES BONUS"
+    trim "on"
+    findline "<tr class="
     unspace
-    if "<td class=\"wrapWords bonus\">"
-        say "1|"
+    if "<tr class=\"discRow\">"
+        trim "on"
+        findline "<td colspan=\"4\">"
+        joinuntil "</td>"
+        unspace
+        set "TEMP_DiscNumber"
+        outputto "TEMP_DiscNumber"
+        unspace
+        # sayuntil "-"
+        sayregexp "\s\d\s"
+
+        outputto "Discnumber"
+        unspace
+        sayoutput "TEMP_DiscNumber"
+        say "|"
     else
+        outputto "Discnumber"
+        unspace
+        sayoutput "TEMP_DiscNumber"
         say "|"
     endif
     
-    # Length
-    outputto "_length"
-    findline "align=\"right\">"
-    sayregexp "\d+:\d+"
-    say "|"
-    
     findline "<td width=\"20\">" 1 1
     unspace
-while "<td width=\"20\">" 666
+    if "<td width=\"20\">"
 
+        # findline "<td width=\"20\">"
+
+        findline "<td" 2
+
+        outputto "Tracks"
+        joinuntil "</td>"
+        findinline "<td"
+        findinline ">"
+        sayuntil "</td>"
+        say "|"
+
+        gotochar 1
+
+        outputto "METAL ARCHIVES BONUS"
+        unspace
+        if "<td class=\"wrapWords bonus\">"
+            say "1|"
+        else
+            say "|"
+        endif
+        
+        # Length
+        outputto "_length"
+        findline "align=\"right\">"
+        sayregexp "\d+:\d+"
+        say "|"
+        
+        findline "<tr class=" 1 1
+        unspace
+    endif
+while "<tr class=" 666
 
 gotoline 1
       
