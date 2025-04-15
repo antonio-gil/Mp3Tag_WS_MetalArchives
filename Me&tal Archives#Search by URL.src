@@ -47,11 +47,14 @@ sayuntil "\""
 
 # Coverurl
 outputto "coverurl"
-findline "class=\"album_img\""
-joinuntil "</div>"
-findinline " href=\"" 1 1
-sayuntil "\""
-
+findline "class=\"album_img\"" 1 1
+unspace
+    if "<div class=\"album_img\">"
+    joinuntil "</div>"
+    findinline " href=\"" 1 1
+    sayuntil "\""
+endif
+gotoline 1
 
 # Album
 outputto "Album"
