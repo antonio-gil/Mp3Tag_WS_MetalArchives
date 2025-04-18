@@ -30,7 +30,7 @@
 # [IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/bands?bandName=%s&&sEcho=1&iColumns=4&sColumns=&iDisplayStart=0&iDisplayLength=100&sNames=%2C%2C%2CbandLabelName=#bands
 [IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/bands?bandName=%s
 [AlbumUrl]=
-[WordSeperator]=+
+[WordSeparator]=+
 [IndexFormat]=%Artist%|%_url%|%Genre%|%Country%
 [SearchBy]=%artist%
 [Encoding]=utf-8

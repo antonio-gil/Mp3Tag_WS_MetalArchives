@@ -25,9 +25,54 @@
 
 [Name]=The Metal Archives
 [BasedOn]=www.metal-archives.com
-[SearchBy]=Enter Album Url||%Metal-Archives Album Url%||%s
+[IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/albums/?releaseYearFrom=0001&releaseYearTo=9999&sEcho=1&iColumns=4&exactBandMatch=1
+[AlbumUrl]=
+[WordSeparator]=+
+[IndexFormat]=%Artist%|%_url%|%Album%|%Type%|%Year%
 [Encoding]=url-utf-8
 [UserAgent]=1
+
+[ParserScriptIndex]=...
+# ###################################################################
+#					I  N  D  E  X
+# ###################################################################
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Index.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Index_Input.txt"
+
+findline "<a href=\\\""
+do
+	# Artist 
+	findinline "\\\">"
+	sayuntil "<"
+	say "|"
+	
+	# Url
+	moveline 1
+	findinline "<a href=\\\"" 
+	sayuntil "\\\""
+	say "|"
+	
+	# Album
+	findinline "\\\">"	
+	sayuntil "<"
+	say "|"
+	
+    # Type
+    moveline 1
+    replace "\"" ""
+    replace "," ""
+	sayrest
+	say "|"
+	
+	# Year
+    moveline 1
+    replace "\"" ""
+	sayuntil "<"
+	saynewline
+	 
+    findline "<a href=\\\"" 1 1
+    unspace
+while "\"<a href" 500
 
 [ParserScriptAlbum]=...
 # ###################################################################
