@@ -33,8 +33,8 @@
 # ###################################################################
 #                   A  L  B  U  M
 # ###################################################################
-debug "on" "D:\Projects\mp3tag_temp\debug_MA_Album.txt"
-debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Album_Input.txt"
+# debug "on" "D:\Projects\mp3tag_temp\debug_MA_Album.txt"
+# debugwriteinput "D:\Projects\mp3tag_temp\debug_MA_Album_Input.txt"
 
 findline "id=\"album_sidebar\">"
 
