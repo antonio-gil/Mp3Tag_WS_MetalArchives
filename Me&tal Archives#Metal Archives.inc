@@ -29,7 +29,7 @@
 [AlbumUrl]=
 [WordSeparator]=+
 [IndexFormat]=%Artist%|%_url%|%Album%|%Type%|%Year%
-[Encoding]=url-utf-8
+[Encoding]=utf-8
 [UserAgent]=1
 
 [ParserScriptIndex]=...
@@ -104,10 +104,23 @@ gotoline 1
 # Album
 outputto "Album"
 findline "<div id=\"album_info\">"
-findline "<h1 class=\"album_name\">"
-regexpreplace "<a[^>]+>" ""
-findinline "<h1 class=\"album_name\">"
-sayuntil "</"
+findline "<h1 class=\"album_name\">" 1 1
+unspace
+if "<h1 class=\"album_name\">"
+    regexpreplace "<a[^>]+>" ""
+    findinline "<h1 class=\"album_name\">"
+    sayuntil "</"
+else
+    gotoline 1
+    findline "<h1 class=\"album_name noCaps\">" 1 1
+    # if "<h1 class=\"album_name noCaps\">"
+        regexpreplace "<a[^>]+>" ""
+        findinline "<h1 class=\"album_name noCaps\">"
+        sayuntil "</"
+    # else
+    #     say ""
+    # endif
+endif
 
 # Artist
 outputto "Artist"

@@ -33,7 +33,7 @@
 [WordSeparator]=+
 [IndexFormat]=%Artist%|%_url%|%Genre%|%Country%
 [SearchBy]=%artist%
-[Encoding]=utf-8
+[Encoding]=url-utf-8
 
 
 [ParserScriptIndex]=...
