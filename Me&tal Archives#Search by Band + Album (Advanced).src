@@ -30,7 +30,7 @@
 [WordSeparator]=+
 [IndexFormat]=%Artist%|%_url%|%Album%|%Type%|%Year%|%Catalog%|%Format%
 [SearchBy]=Band||%artist%||&bandName=%s||Album||%album%||&releaseTitle=%s
-[Encoding]=utf-8
+[Encoding]=url-utf-8
 [UserAgent]=1
 
 [ParserScriptIndex]=...

@@ -29,7 +29,7 @@
 [AlbumUrl]=
 [WordSeparator]=+
 [IndexFormat]=%Artist%|%_url%|%Album%|%Type%|%Year%
-[Encoding]=utf-8
+[Encoding]=url-utf-8
 [UserAgent]=1
 
 [ParserScriptIndex]=...
