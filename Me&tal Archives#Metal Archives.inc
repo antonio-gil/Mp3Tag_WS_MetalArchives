@@ -124,10 +124,24 @@ endif
 
 # Artist
 outputto "Artist"
-findline "<h2 class=\"band_name\">"
-moveline 1 1
-regexpreplace "<a[^>]+>" ""
-sayuntil "</"
+findline "<h2 class=\"band_name\">" 1 1
+unspace
+if "<h2 class=\"band_name\">"
+    moveline 1 1
+    regexpreplace "<a[^>]+>" ""
+    sayuntil "</"
+else
+    gotoline 1
+    findline "<h2 class=\"band_name noCaps\">" 1 1
+    # if "<h2 class=\"band_name noCaps\">"
+        moveline 1 1
+        regexpreplace "<a[^>]+>" ""
+        # findinline "<h2 class=\"band_name noCaps\">"
+        sayuntil "</"
+    # else
+    #     say ""
+    # endif
+endif
 
 # Type
 outputto "METAL ARCHIVES TYPE"
