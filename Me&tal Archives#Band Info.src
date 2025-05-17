@@ -27,17 +27,15 @@
 
 [Name]=The Metal Archives
 [BasedOn]=www.metal-archives.com
-# [IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/bands?bandName=%s&&sEcho=1&iColumns=4&sColumns=&iDisplayStart=0&iDisplayLength=100&sNames=%2C%2C%2CbandLabelName=#bands
-[IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/bands?bandName=%s
+[IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/bands/?genre=&country=&yearCreationFrom=&yearCreationTo=&bandNotes=&status=&themes=&location=&bandLabelName=&sEcho=1&iColumns=3&sColumns=&iDisplayStart=0&iDisplayLength=200&exactBandMatch=1&bandName=%s
+# [IndexUrl]=https://www.metal-archives.com/search/ajax-advanced/searching/bands?bandName=%s
 [AlbumUrl]=
 [WordSeparator]=+
 [IndexFormat]=%Artist%|%_url%|%Genre%|%Country%
 [SearchBy]=%artist%
 [Encoding]=url-utf-8
 
-
 [ParserScriptIndex]=...
-
 # ###################################################################
 #					I  N  D  E  X
 # ###################################################################
